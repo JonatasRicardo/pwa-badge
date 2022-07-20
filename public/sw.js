@@ -111,9 +111,10 @@ define(['./workbox-74d02f44'], (function (workbox) { 'use strict';
   }), 'GET');
 
 }));
-//# sourceMappingURL=sw.js.map
 
 // needed to make the PWA installable
 self.addEventListener('fetch', function(e) {
   e.respondWith(fetch(e.request));
 });
+
+//# sourceMappingURL=sw.js.map
