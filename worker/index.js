@@ -1,24 +1,30 @@
-let count = 0;
-const setBadge = (...args) => {
-    if (navigator.setBadge) {
-      return navigator.setBadge(...args);
-    } else if (navigator.setExperimentalBadge) {
-      return navigator.setExperimentalBadge(...args);
-    } else if (navigator.setClientBadge) {
-      return navigator.setClientBadge(...args);
-    } else if (navigator.setAppBadge) {
-      navigator.setAppBadge(...args);
-    } else if (navigator.setExperimentalAppBadge) {
-      navigator.setExperimentalAppBadge(...args);
-    } else if (window.ExperimentalBadge) {
-      window.ExperimentalBadge.set(...args);
-    }
+let requestCounter = 0;
+
+function setBadge(...args) {
+  if (navigator.setAppBadge) {
+    navigator.setAppBadge(...args);
+  } else if (navigator.setExperimentalAppBadge) {
+    navigator.setExperimentalAppBadge(...args);
+  } else if (window.ExperimentalBadge) {
+    window.ExperimentalBadge.set(...args);
+  }
 }
+
+function clearBadge() {
+  if (navigator.clearAppBadge) {
+    navigator.clearAppBadge();
+  } else if (navigator.clearExperimentalAppBadge) {
+    navigator.clearExperimentalAppBadge();
+  } else if (window.ExperimentalBadge) {
+    window.ExperimentalBadge.clear();
+  }
+}
+
+
 
 self.addEventListener('fetch', function(e) {
     console.log('SW fetch')
-    ++count;
-    console.log('SW count', count)
-    setBadge(count);
+    setBadge(++requestCounter);
+    console.log('SW requestCounter', requestCounter)
     e.respondWith(fetch(e.request));
 });
