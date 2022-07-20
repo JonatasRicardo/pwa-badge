@@ -29,16 +29,7 @@ export default function Home() {
   }
 
   const setBadge = (...args) => {
-    if (navigator.setAppBadge) {
-      setApi('navigator.setAppBadge')
-      navigator.setAppBadge(...args);
-    } else if (navigator.setExperimentalAppBadge) {
-      setApi('navigator.setExperimentalAppBadge')
-      navigator.setExperimentalAppBadge(...args);
-    } else if (window.ExperimentalBadge) {
-      setApi('window.ExperimentalBadge')
-      window.ExperimentalBadge.set(...args);
-    } else if (navigator.setBadge) {
+    if (navigator.setBadge) {
       setApi('navigator.setBadge')
       return navigator.setBadge(...args);
     } else if (navigator.setExperimentalBadge) {
@@ -47,6 +38,15 @@ export default function Home() {
     } else if (navigator.setClientBadge) {
       setApi('navigator.setClientBadge')
       return navigator.setClientBadge(...args);
+    } else if (navigator.setAppBadge) {
+      setApi('navigator.setAppBadge')
+      navigator.setAppBadge(...args);
+    } else if (navigator.setExperimentalAppBadge) {
+      setApi('navigator.setExperimentalAppBadge')
+      navigator.setExperimentalAppBadge(...args);
+    } else if (window.ExperimentalBadge) {
+      setApi('window.ExperimentalBadge')
+      window.ExperimentalBadge.set(...args);
     }
   }
 
