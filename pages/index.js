@@ -66,8 +66,36 @@ export default function Home() {
       }
   }
 
+  const forceSetBadge = () => {
+    const { api } = form;
+    switch (api) {
+      case 'navigator.setBadge':
+        navigator.setBadge(form.count)
+        break;
+      case 'navigator.setExperimentalBadge':
+        navigator.setExperimentalBadge(form.count)
+        break;
+      case 'navigator.setClientBadge':
+        navigator.setClientBadge(form.count)
+        break;
+      case 'navigator.setAppBadge':
+        navigator.setAppBadge(form.count)
+        break;
+      case 'navigator.setExperimentalAppBadge':
+        navigator.setExperimentalAppBadge(form.count)
+        break;
+      case 'window.ExperimentalBadge':
+        window.ExperimentalBadge(form.count)
+        break;
+      default:
+        window.ExperimentalBadge(form.count)
+        break;
+    }
+  }
+
+
   return (
-    <div>
+    <div style={{ padding: 15 }}>
       <h1>PWA Badge</h1>
       <div>
         {JSON.stringify(form)} <br/>
@@ -81,12 +109,18 @@ export default function Home() {
           <button onClick={clearBadge}>clear</button>
         </div>
         
-        {/* <select name="api" value={form.api} onChange={handleChange}>
+        <select name="api" value={form.api} onChange={handleChange}>
           <option></option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-        </select> */}
+          <option>navigator.setBadge</option>
+          <option>navigator.setExperimentalBadge</option>
+          <option>navigator.setClientBadge</option>
+          <option>navigator.setAppBadge</option>
+          <option>navigator.setExperimentalAppBadge</option>
+          <option>window.ExperimentalBadge</option>
+        </select>
+        <div>
+          <button onClick={forceSetBadge}>set {form.api}</button>
+        </div>
       </div>
     </div>
   )
