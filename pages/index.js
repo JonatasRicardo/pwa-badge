@@ -2,12 +2,19 @@ import Head from 'next/head'
 import Image from 'next/image'
 import React from 'react'
 import styles from '../styles/Home.module.css'
+import PWABadge from 'pwa-badge';
 
 export default function Home() {
   const [form, setForm] = React.useState({
     count: '',
     api: '',
   });
+  let badge;
+
+  React.useEffect(() => {
+    badge = new PWABadge();
+    console.log('badge?.isSupported() ', badge?.isSupported() )
+  })
 
   const handleChange = (e) => {
     const { value, name } = e?.target;
@@ -97,6 +104,7 @@ export default function Home() {
   return (
     <div style={{ padding: 15 }}>
       <h1>PWA Badge</h1>
+      <div>{badge?.isSupported() ? "badge is supported" : "badge is not supported"}</div>
       <div>
         {JSON.stringify(form)} <br/>
         <div>
